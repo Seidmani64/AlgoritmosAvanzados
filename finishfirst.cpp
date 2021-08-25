@@ -56,7 +56,7 @@ int main()
     for(int i = 0; i < optimalIdx.size(); i++)
     {
         if(i < optimalIdx.size()-1)
-            cout<<optimalIdx[i]<<", ";
+            cout<<optimalIdx[i]<<" ";
         else
             cout<<optimalIdx[i];
     }
