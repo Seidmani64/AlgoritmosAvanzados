@@ -1,10 +1,11 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 using namespace std;
 
-vector<vector<int>> getIndexes(string pattern, string text)
+vector<pair<char,vector<int>>> getIndexes(string pattern, string text)
 {
-    vector<vector<int>> allIndexes;
+    vector<pair<char,vector<int>>> allIndexes;
     vector<int> letterIndexes;
     char currentChar = ' ';
     while(pattern.size() > 0)
@@ -22,7 +23,7 @@ vector<vector<int>> getIndexes(string pattern, string text)
                         pattern.erase(i,i);
                 }
         }
-        allIndexes.push_back(letterIndexes);
+        allIndexes.push_back(make_pair(currentChar,letterIndexes));
     }
 
     return allIndexes;
