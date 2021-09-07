@@ -53,6 +53,7 @@ int main()
     vector<int> inicio1 = {0,1,3,3,4,5,6,8};
     vector<int> final1 = {6,4,5,8,7,9,10,11};
     vector<int> optimalIdx1 = mostJobs(n1, inicio1, final1);
+    sort(optimalIdx1.begin(), optimalIdx1.end());
     cout<<"\n";
     for(int i = 0; i < optimalIdx1.size(); i++)
     {
@@ -63,10 +64,11 @@ int main()
     }
 
     //Segunda prueba
-    int n2 = 1;
-    vector<int> inicio2 = {0};
-    vector<int> final2 = {20};
+    int n2 = 10;
+    vector<int> inicio2 = {2,3,1,4,3,2,6,7,8,9};
+    vector<int> final2 = {4,4,3,5,5,5,8,9,9,10};
     vector<int> optimalIdx2 = mostJobs(n2, inicio2, final2);
+    sort(optimalIdx2.begin(), optimalIdx2.end());
     cout<<"\n";
     for(int i = 0; i < optimalIdx2.size(); i++)
     {
@@ -77,10 +79,11 @@ int main()
     }
 
     //Tercera prueba
-    int n3 = 5;
-    vector<int> inicio3 = {0,0,0,0,0};
-    vector<int> final3 = {5,3,1,2,2};
+    int n3 = 6;
+    vector<int> inicio3 = {1,2,0,5,7,6};
+    vector<int> final3 = {3,4,2,6,8,10};
     vector<int> optimalIdx3 = mostJobs(n3, inicio3, final3);
+    sort(optimalIdx3.begin(), optimalIdx3.end());
     cout<<"\n";
     for(int i = 0; i < optimalIdx3.size(); i++)
     {
@@ -91,10 +94,11 @@ int main()
     }
 
     //Cuarta prueba
-    int n4 = 5;
-    vector<int> inicio4 = {0,2,4,6,8};
-    vector<int> final4 = {5,5,5,5,5};
+    int n4 = 3;
+    vector<int> inicio4 = {1,5,8};
+    vector<int> final4 = {2,8,10};
     vector<int> optimalIdx4 = mostJobs(n4, inicio4, final4);
+    sort(optimalIdx4.begin(), optimalIdx4.end());
     cout<<"\n";
     for(int i = 0; i < optimalIdx4.size(); i++)
     {

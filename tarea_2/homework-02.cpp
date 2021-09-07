@@ -18,24 +18,25 @@ bool sortBySecond(const Job &a, const Job &b)
 }
 
 int M_Compute_Opt(int j, vector<Job> jobs){
+  //cout<<"The value of m"<<j<<" before executing is: "<<m[j]<<endl;
   if(j == 0)
-    m[j] = jobs[j].weights;
-  if(m[j] == 0)
+    m[j] = 0;
+  else if(m[j] == -1)
   {
-    m[j] = max(M_Compute_Opt(j-1, jobs),jobs[j].weights+M_Compute_Opt(p[j], jobs));
+    m[j] = max(M_Compute_Opt(j-1, jobs),jobs[j].weights + M_Compute_Opt(p[j], jobs));
   }
-    return m[j];
+  
+  return m[j];
 }
 
-int Top_Down(vector<Job> jobs, vector<int> index){
-
-    sort( index.begin(),index.end(), [&](int i,int j){return jobs[i].finishTimes<jobs[j].finishTimes;} );
+int Top_Down(vector<Job> jobs){
     
     sort(jobs.begin(), jobs.end(), sortBySecond);
 
     for(int i = 0; i < jobs.size(); i++){
-      p.push_back(index.at(binarySearch(jobs, jobs[i])));
-      m.push_back(0);
+      p.push_back(binarySearch(jobs, jobs[i]));
+      cout<<"The value of p for: "<<i<<" is: "<<p[i]<<endl;
+      m.push_back(-1);
     }
 
     return M_Compute_Opt(jobs.size()-1, jobs);
@@ -67,33 +68,33 @@ int Top_Down(vector<Job> jobs, vector<int> index){
   vector<int> final;
   vector<int> pesos;
   vector<Job> jobs;
-  vector<int> index(n);
   
   inicio = {1,3,0,4,3,5,6,4};
   final = {4,5,6,7,8,9,10,11};
   pesos = {5,1,10,6,4,8,2,1};
 
  
-  for(int i = 0; i < n ; i++){
-      Job jobI(inicio[i],final[i],pesos[i]);
+  for(int i = 1; i <= n ; i++){
+      Job jobI(inicio[i],final[i],pesos[i],i);
       jobs.push_back(jobI);
   }
 
-  iota(index.begin(),index.end(),0);
 
 
-  Top_Down(jobs,index);
+  Top_Down(jobs);
+
 
   for(int i = 0; i < m.size(); i++)
   {
     cout<<"The value of m at "<<i<<" is: "<<m[i]<<endl;
   }
-
+/*
   vector<int>::iterator it;
   it = max_element(m.begin(),m.end());
   int idx = distance(m.begin(), it);
   cout<<"The index of the largest combination is: "<<idx<<endl;
   cout<<idx<<" "<<p[idx]<<endl;
+  */
  
   return 0;
 }

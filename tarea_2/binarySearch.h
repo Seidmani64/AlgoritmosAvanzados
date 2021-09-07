@@ -22,19 +22,13 @@ int binarySearch(vector<Job> jobs, const Job &x )
        if(mid == 0){
         hi = -1;
        }
-
-       else if(isCompatible(jobs.at(mid-1),x)){
-        lo = mid + 1;
-       }
-       
-       else{
+       else if(isCompatible(jobs.at(mid),x))
+        lo = mid + 1;  
+       else
         hi = mid;
-       }
-
-       
     }
 
-    if(lo == 0){
+    if(lo == 1){
         return 0;
     }
 
