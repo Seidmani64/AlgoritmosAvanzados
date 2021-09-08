@@ -21,8 +21,40 @@ vector<pair<char,vector<int>>> getIndexes(string pattern, string text)
     return allIndexes;
 }
 
-int badCharacterRule(string pattern, string text, vector<vector<int>> indexes)
+int findRi(int i, char x, vector<pair<char,vector<int>>>& list)
 {
-    
-    return 0;
+    for(int j = 0; j < list.size(); j++)
+    {
+        if(x==list[j].first)
+        {
+            for(int k = 0; k < list[j].second.size(); k++)
+            {
+                if(list[j].second[k] < i)
+                    return list[j].second[k];
+            }
+        }
+    }
+    return -1;
 }
+
+int badCharacterRule(int k, string pattern, string text, vector<pair<char,vector<int>>>& indexes)
+{
+    int max = k+pattern.length()-1;
+    int idx = pattern.length()-1;
+    for(int i = k+pattern.length()-1; i >= k; i--)
+    {
+        if(pattern[idx]!=text[i])
+        {
+            return idx-findRi(idx,text[i],indexes);
+        }
+        idx--;
+    }
+    return -1;
+}
+
+/*
+int badCharacterRule(int i, char Tk, vector<pair<char,vector<int>>> indexes)
+{
+    return i-findRi(i,Tk,indexes);
+}
+*/
