@@ -2,52 +2,84 @@
 #include <vector>
 using namespace std;
 
-vector<int> shift;
-vector<int> border;
-
-void caseA(string pattern)
+string findLongestSuffix(int k, string text, string pattern)
 {
-    int i = pattern.length();
-    int j = i+1;
-
-    while(i>0)
+    string suffix = "";
+    for(int i = 0; i<pattern.length(); i++)
     {
-        while(j<=pattern.length() && pattern[i-1] != pattern[j-1])
+        if(pattern[i]==text[k+i])
         {
-            if (shift[j]==0)
-                shift[j] = j-i;
-            j = border[j];
+            suffix+=pattern[i];
+        }
+        else
+            i = pattern.length();
+    }
+    
+    return suffix;
+}
+
+string findAlpha(int k, string text, string pattern)
+{
+    string alpha = {text[k+pattern.length()-1]};
+    int max = -1;
+    int min = k;
+    for(int i = pattern.length()-1; i+k >= k; i--)
+    {
+        if(pattern[i]==text[i+k])
+        {
+            if(max == -1)
+                max = i;
+            min = i;
         }
     }
-    i--;
-    j--;
-    border[i] = j;
+    if(max > -1)
+        alpha = pattern.substr(min,max);
+    return alpha;
+
 }
 
-void caseB(string pattern)
+bool findBeta(string alpha, string pattern)
 {
-    int i, j;
-    j = border[0];
-    for(i=0; i<=pattern.length(); i++)
-    {
-        if(shift[i]==0)
-            shift[i] = j;
-  
-        if (i==j)
-            j = border[j];
-    }
-}
-
-int goodSuffixRule(string text, string pattern)
-{
-    border.resize(pattern.length()+1);
-    shift.resize(pattern.length()+1);
-    int s = 0;
+    bool found = false;
     int j = 0;
+    for(int i = alpha.length(); i > 0; i--)
+    {
+        if(pattern.substr(0,i)==alpha.substr(j,alpha.length()))
+            found = true;
+        j++;
+    }
+    return found;
+}
 
-    if (j<0)
-        s += shift[0];
+int alphaPresent(string alpha, string pattern)
+{
+    int idx = -1;
+    int length = alpha.length();
+    for(int i = 0; i < pattern.length()-alpha.length()+1; i++)
+    {
+        if(pattern.substr(i,alpha.length())==alpha)
+            idx = i;
+    }
+    return idx;
+}
+
+int goodSuffixRule(int k, string text, string pattern)
+{
+    int s = 0;
+    string alpha = findAlpha(k,text,pattern);
+    int alphaIdx = alphaPresent(alpha,pattern);
+    if(alphaIdx > -1)
+    {
+        s = alphaIdx;
+    }
+    else if(findBeta(alpha,pattern))
+    {
+        s = 0;
+    }
     else
-        s += shift[j+1];
+    {
+        s = pattern.length();
+    }
+
     return s;
 }
