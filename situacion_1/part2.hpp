@@ -1,8 +1,8 @@
 #ifndef part2_hpp
 #define part2_hpp
-#include<vector>
-#include<string>
-#include<iostream>
+#include <vector>
+#include <string>
+#include <iostream>
 #include "palindromes.hpp"
 
 
@@ -35,4 +35,4 @@ void part2(std::vector<std::string> textVector){
     std::cout << "Position: " << positions.at(maxSizeLine) << ". Line: " << maxSizeLine << ". Length: " << maxLengths.at(maxSizeLine) << std::endl;
 }
 
-#endif // !part2_hpp
+#endif
