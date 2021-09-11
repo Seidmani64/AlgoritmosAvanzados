@@ -4,7 +4,7 @@
 #include <string>
 
 int min(int a, int b){
-    return (a > b) ? a : b;
+    return (a < b) ? a : b;
 }
 
 void FindLongestPalindrome(std::string text, int* val){
